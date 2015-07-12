@@ -118,7 +118,6 @@ String read_StringEE(int Addr,int length)
 	for(int i=0;i<length-1;i++)
 	{
 		stemp.concat(cbuff[i]);//combines characters into a String
-		delay(100);
 	}
 	return stemp;
 }
