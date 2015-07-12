@@ -133,7 +133,10 @@ if (Serial.available())
 {
 if (eemode == "Write")
 {
+Serial.println("Writing to EEPROM...");
 String string2 = Serial.readString();
+Serial.println("Value to Store: "+string2);
+Serial.println();
 string2 += string + "||" + "                                                                                ";
 string2 = string2.substring(0,64);
 write_StringEE(eeaddress,string2);
@@ -147,6 +150,7 @@ if (eemode == "Read")
 String string = Serial.readString();
 string += "                                                                                ";
 string = string.substring(0,64);
+Serial.println("Reading EEPROM...");
 String result = read_StringEE(eeaddress, 64);
 string.replace(" ","_");
 result.replace(" ","_");
@@ -155,11 +159,18 @@ String stringValue = result;
 stringAddress.replace("_"," ");
 stringValue.replace("_"," ");
 stringValue.replace(string+"||","");
+stringValue.replace("||","");
 Serial.println("Address: " + stringAddress);
-Serial.println("Value: " + stringValue);
+
 if (stringValue == "                                                               ")
 {
+Serial.println("Value: ?");
+Serial.println();
 eemode = "Write";
+}
+if (stringValue != "                                                               ")
+{
+Serial.print("Value: " + stringValue);
 }
 }
 }
